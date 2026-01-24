@@ -37,67 +37,37 @@ public class Launcher {
     }
 
     public void tick() {
-                telemetry.addData("Cannon speed :", Cannon_speed);
-                telemetry.update();
+        telemetry.addData("Cannon speed :", Cannon_speed);
+        telemetry.addData("actual speed", shooter.getVelocity());
+        // telemetry.update();
 
-            if (controler.left_bumper) {
-                doorMan.setPosition(0.5);
-            } else {
-                doorMan.setPosition(0);
-            }
-            if (controler.dpadLeftWasPressed()) {
-                Cannon_speed += 0.05;
-            }
-            if (controler.dpadRightWasPressed()) {
-                Cannon_speed += -0.05;
-            }
-            if (controler.dpadUpWasPressed()) {
-                shooter.setPower(-Cannon_speed);
-            }
-            if (controler.dpadDownWasPressed()) {
-                shooter.setPower(0);
-            }
-        }
-
-
-    /**
-     * Describe this function...
-     */
-
-
-        /*
         if (controler.left_bumper) {
             doorMan.setPosition(0.5);
         } else {
             doorMan.setPosition(0);
         }
         if (controler.dpadRightWasPressed()) {
-            Cannon_speed += 0.05;
+            Cannon_speed += -100;
         }
         if (controler.dpadLeftWasPressed()) {
-            Cannon_speed += -0.05;
-        }
-        Cannon_speed = Math.max(0.0, Math.min(1.0, Cannon_speed));
-
-        if (controler.dpadDownWasPressed()) {
-            targetRPM = Cannon_speed * 6000;
-            double tps = (targetRPM * TICKS_PER_REV) / 60.0;
-            shooter.setVelocity(tps);
-
+            Cannon_speed += 100;
         }
         if (controler.dpadUpWasPressed()) {
-            shooter.setVelocity(0);
-            targetRPM = 0;
+            ((DcMotorEx) shooter).setVelocity(-Cannon_speed);
         }
-        telemetry.addData("Cannon speed", Cannon_speed);
+        if (controler.dpadDownWasPressed()) {
+            ((DcMotorEx) shooter).setVelocity(0);
+        }
 
-        telemetry.addData("Target RPM", targetRPM);
-        telemetry.addData("Actual RPM", ticksPerSecondToRPM(shooter.getVelocity()));
+       if (shooter.getVelocity()  == 1100){
+           controler.rumble(100, 100,1000);
+
+
+           telemetry.update();
+       }
+
     }
-    private double ticksPerSecondToRPM(double tps) {
-        return (tps * 60.0) / TICKS_PER_REV;
-    }
-    */
+
 
 }
 

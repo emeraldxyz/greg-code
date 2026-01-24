@@ -1,3 +1,5 @@
+
+
 package org.firstinspires.ftc.teamcode.tuning;
 
 import com.acmerobotics.roadrunner.Action;
@@ -16,10 +18,10 @@ public class autoRR extends LinearOpMode {
 
 
 
-        public void runOpMode(){
+    public void runOpMode() throws InterruptedException {
 
             Pose2d startPose = new Pose2d(12, 60, Math.toRadians(90));
-            MecanumDrive drive = new MecanumDrive(HardwareMap,startPose);
+            MecanumDrive drive = new MecanumDrive(hardwareMap,startPose);
 
             Action goTO = drive.actionBuilder(startPose)
                     .strafeTo(new Vector2d(12,12))
@@ -32,4 +34,5 @@ public class autoRR extends LinearOpMode {
             Actions.runBlocking(goTO);
             }
         }
-    }
+
+
